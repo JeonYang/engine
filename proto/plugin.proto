@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+import "proto/basic.proto";
+message PluginInfo {
+    // 插件名唯一
+    string Name = 1;
+    repeated int32 Version = 2;
+    string MD5 = 3;
+    // json字符串
+    string Conf = 4;
+}
+
+service Plugin {
+    rpc Plugin (PluginInfo) returns (PluginInfo) {
+    }
+    rpc Remove (PluginInfo) returns (proto.BasicResponse) {
+    }
+    rpc Start (PluginInfo) returns (proto.BasicResponse) {
+    }
+    rpc ReStart (PluginInfo) returns (proto.BasicResponse) {
+    }
+    rpc Stop (PluginInfo) returns (proto.BasicResponse) {
+    }
+}
