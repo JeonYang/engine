@@ -14,10 +14,10 @@ func (engin *EngineServer) Command(context context.Context, command *proto.Comma
 	case "restart":
 	case "stop":
 	default:
-		response = &proto.BasicResponse{Code: 0, Stderr: "fail command,command mast in [restart,stop]."}
+		response = &proto.BasicResponse{Code: 0, Message: "fail command,command mast in [restart,stop]."}
 	}
 	return response, nil
 }
-func (engin *EngineServer) Upgrade(context.Context, *proto.UpgradeRequest) (*proto.BasicResponse, error) {
+func (engin *EngineServer) Upgrade(context context.Context, download *proto.Download) (*proto.BasicResponse, error) {
 	return nil, nil
 }

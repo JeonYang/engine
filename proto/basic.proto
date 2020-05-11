@@ -3,6 +3,12 @@ package proto;
 
 message BasicResponse {
     int32 code = 1;
-    string stdout = 2;
-    string stderr = 3;
+    string message = 2;
+}
+
+message Download {
+    string Name = 1;
+    repeated int32 Version = 2;
+    string Url = 3;
+    string Md5 = 4;
 }

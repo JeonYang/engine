@@ -80,14 +80,14 @@ func defaultConf() {
 	}
 }
 
-func (conf *engineConf) PluginPath() string {
-	return filepath.Join(conf.DataDir, "plugin")
+func (conf *engineConf) PluginPath(pluginName string) string {
+	return filepath.Join(conf.DataDir, "plugin", pluginName)
 }
 
 func (conf *engineConf) EnginePath() string {
-	return filepath.Join(conf.DataDir, "engine")
+	return filepath.Join(conf.DataDir, "engine",)
 }
 
 func (conf *engineConf) PanicFile() string {
-	return filepath.Join(conf.DataDir, "engine")
+	return filepath.Join(conf.Logger.Path, defaultLogPanicFileName)
 }

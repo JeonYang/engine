@@ -11,15 +11,24 @@ message PluginInfo {
     string Conf = 4;
 }
 
+message PluginConf {
+    // 插件名唯一
+    string Name = 1;
+    // json字符串
+    string Conf = 2;
+}
+
 service Plugin {
-    rpc Plugin (PluginInfo) returns (PluginInfo) {
+    rpc Upgrade (proto.Download) returns (proto.BasicResponse) {
     }
-    rpc Remove (PluginInfo) returns (proto.BasicResponse) {
+    rpc Plugin (PluginConf) returns (PluginInfo) {
     }
-    rpc Start (PluginInfo) returns (proto.BasicResponse) {
+    rpc Remove (PluginConf) returns (proto.BasicResponse) {
     }
-    rpc ReStart (PluginInfo) returns (proto.BasicResponse) {
+    rpc Start (PluginConf) returns (proto.BasicResponse) {
     }
-    rpc Stop (PluginInfo) returns (proto.BasicResponse) {
+    rpc ReStart (PluginConf) returns (proto.BasicResponse) {
+    }
+    rpc Stop (PluginConf) returns (proto.BasicResponse) {
     }
 }

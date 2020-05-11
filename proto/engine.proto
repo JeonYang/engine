@@ -2,11 +2,6 @@ syntax = "proto3"; //指定proto版本
 
 package proto;
 import "proto/basic.proto";
-message UpgradeRequest {
-    repeated int32 Version = 1;
-    string Url = 2;
-    string Md5 = 3;
-}
 
 message CommandRequest {
     string command = 1;
@@ -16,7 +11,7 @@ service Engine {
     // stop restart
     rpc Command (CommandRequest) returns (proto.BasicResponse) {
     }
-    rpc Upgrade (UpgradeRequest) returns (proto.BasicResponse) {
+    rpc Upgrade (proto.Download) returns (proto.BasicResponse) {
     }
 }
 

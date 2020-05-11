@@ -5,6 +5,7 @@ const (
 	defaultConfName        = "engine.yaml"
 	defaultRpcPort         = "9999"
 	defaultLogFileName     = "engine.log"
+	defaultLogPanicFileName     = "engine.log"
 	defaultLogLevel        = "debug"
 	defaultLogMaxAge       = 60 * 60 * 24
 	defaultLogRotationTime = 60 * 60 * 24 * 7

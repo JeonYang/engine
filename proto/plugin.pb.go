@@ -87,28 +87,80 @@ func (m *PluginInfo) GetConf() string {
 	return ""
 }
 
+type PluginConf struct {
+	// 插件名唯一
+	Name string `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	// json字符串
+	Conf                 string   `protobuf:"bytes,2,opt,name=Conf,proto3" json:"Conf,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *PluginConf) Reset()         { *m = PluginConf{} }
+func (m *PluginConf) String() string { return proto.CompactTextString(m) }
+func (*PluginConf) ProtoMessage()    {}
+func (*PluginConf) Descriptor() ([]byte, []int) {
+	return fileDescriptor_4368bc2f41172306, []int{1}
+}
+
+func (m *PluginConf) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_PluginConf.Unmarshal(m, b)
+}
+func (m *PluginConf) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_PluginConf.Marshal(b, m, deterministic)
+}
+func (m *PluginConf) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_PluginConf.Merge(m, src)
+}
+func (m *PluginConf) XXX_Size() int {
+	return xxx_messageInfo_PluginConf.Size(m)
+}
+func (m *PluginConf) XXX_DiscardUnknown() {
+	xxx_messageInfo_PluginConf.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_PluginConf proto.InternalMessageInfo
+
+func (m *PluginConf) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *PluginConf) GetConf() string {
+	if m != nil {
+		return m.Conf
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*PluginInfo)(nil), "proto.PluginInfo")
+	proto.RegisterType((*PluginConf)(nil), "proto.PluginConf")
 }
 
 func init() { proto.RegisterFile("proto/plugin.proto", fileDescriptor_4368bc2f41172306) }
 
 var fileDescriptor_4368bc2f41172306 = []byte{
-	// 211 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2a, 0x28, 0xca, 0x2f,
-	0xc9, 0xd7, 0x2f, 0xc8, 0x29, 0x4d, 0xcf, 0xcc, 0xd3, 0x03, 0x73, 0x84, 0x58, 0xc1, 0x94, 0x94,
-	0x20, 0x44, 0x2a, 0x29, 0xb1, 0x38, 0x33, 0x19, 0x22, 0xa3, 0x94, 0xc0, 0xc5, 0x15, 0x00, 0x56,
-	0xe9, 0x99, 0x97, 0x96, 0x2f, 0x24, 0xc4, 0xc5, 0xe2, 0x97, 0x98, 0x9b, 0x2a, 0xc1, 0xa8, 0xc0,
-	0xa8, 0xc1, 0x19, 0x04, 0x66, 0x0b, 0x49, 0x70, 0xb1, 0x87, 0xa5, 0x16, 0x15, 0x67, 0xe6, 0xe7,
-	0x49, 0x30, 0x29, 0x30, 0x6b, 0xb0, 0x06, 0xc1, 0xb8, 0x42, 0x02, 0x5c, 0xcc, 0xbe, 0x2e, 0xa6,
-	0x12, 0xcc, 0x60, 0xc5, 0x20, 0x26, 0x48, 0xbf, 0x73, 0x7e, 0x5e, 0x9a, 0x04, 0x0b, 0x44, 0x3f,
-	0x88, 0x6d, 0xd4, 0xc3, 0xc4, 0xc5, 0x06, 0xb1, 0x42, 0xc8, 0x00, 0xce, 0x12, 0x84, 0x58, 0xaf,
-	0x87, 0xb0, 0x5b, 0x0a, 0x53, 0x48, 0x89, 0x41, 0xc8, 0x98, 0x8b, 0x2d, 0x28, 0x35, 0x37, 0xbf,
-	0x2c, 0x15, 0x9b, 0x0e, 0x11, 0xa8, 0x90, 0x13, 0xc8, 0x3f, 0x41, 0xa9, 0xc5, 0x05, 0xf9, 0x79,
-	0xc5, 0xa9, 0x4a, 0x0c, 0x42, 0x46, 0x5c, 0xac, 0xc1, 0x25, 0x89, 0x45, 0x25, 0xa4, 0xe8, 0x31,
-	0xe1, 0x62, 0x0f, 0x4a, 0x25, 0x59, 0x97, 0x21, 0x17, 0x4b, 0x70, 0x49, 0x7e, 0x01, 0x09, 0x5a,
-	0x92, 0xd8, 0xc0, 0xc2, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff, 0xff, 0xef, 0x11, 0x90, 0x3a, 0xa7,
-	0x01, 0x00, 0x00,
+	// 250 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x8f, 0x4f, 0x4f, 0x02, 0x31,
+	0x10, 0xc5, 0x61, 0xff, 0xc6, 0xb9, 0x28, 0x13, 0x0f, 0xcd, 0x9e, 0xc8, 0x9e, 0x38, 0xa1, 0x2e,
+	0xf8, 0x05, 0x94, 0x8b, 0x07, 0x8d, 0x29, 0xd1, 0xb3, 0x45, 0x06, 0xb2, 0x09, 0x74, 0x9a, 0xdd,
+	0xaa, 0x5f, 0xcf, 0x8f, 0x66, 0xda, 0xb2, 0x12, 0x13, 0x3c, 0xec, 0xa9, 0xf3, 0x5e, 0xdf, 0x2f,
+	0x6f, 0x06, 0xd0, 0x34, 0x6c, 0xf9, 0xca, 0xec, 0x3e, 0xb6, 0xb5, 0x9e, 0x7a, 0x81, 0xa9, 0x7f,
+	0x8a, 0x51, 0xf8, 0x5a, 0xa9, 0xb6, 0x7e, 0x0f, 0x3f, 0xe5, 0x1b, 0xc0, 0xb3, 0x4f, 0x3e, 0xe8,
+	0x0d, 0x23, 0x42, 0xf2, 0xa4, 0xf6, 0x24, 0x86, 0xe3, 0xe1, 0xe4, 0x4c, 0xfa, 0x19, 0x05, 0xe4,
+	0xaf, 0xd4, 0xb4, 0x35, 0x6b, 0x11, 0x8d, 0xe3, 0x49, 0x2a, 0x3b, 0x89, 0x17, 0x10, 0x3f, 0x2e,
+	0x6e, 0x45, 0xec, 0xc3, 0x6e, 0x74, 0xfc, 0x3d, 0xeb, 0x8d, 0x48, 0x02, 0xef, 0xe6, 0x72, 0xde,
+	0x35, 0x38, 0x75, 0xb2, 0xa1, 0xa3, 0xa2, 0x23, 0x55, 0x7d, 0x47, 0x90, 0x05, 0x0c, 0x2b, 0xc8,
+	0x5f, 0xcc, 0xb6, 0x51, 0x6b, 0xc2, 0xf3, 0xb0, 0xf5, 0x74, 0xc1, 0x5f, 0x7a, 0xc7, 0x6a, 0x5d,
+	0x5c, 0x1e, 0x8c, 0x3b, 0x77, 0x92, 0xa4, 0xd6, 0xb0, 0x6e, 0xa9, 0x1c, 0xe0, 0xf5, 0x2f, 0x3d,
+	0x3a, 0x24, 0x8e, 0x3b, 0x14, 0x7f, 0x2d, 0x77, 0x78, 0x39, 0xc0, 0x19, 0x64, 0x92, 0xf6, 0xfc,
+	0x49, 0xa7, 0x88, 0xff, 0x6a, 0x2a, 0x48, 0x97, 0x56, 0x35, 0xb6, 0x0f, 0x33, 0x87, 0x5c, 0x52,
+	0x6f, 0xea, 0x06, 0x92, 0xa5, 0x65, 0xd3, 0x03, 0x59, 0x65, 0xde, 0x9e, 0xfd, 0x04, 0x00, 0x00,
+	0xff, 0xff, 0x2c, 0xe2, 0xfc, 0x87, 0x11, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -123,11 +175,12 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type PluginClient interface {
-	Plugin(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*PluginInfo, error)
-	Remove(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error)
-	Start(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error)
-	ReStart(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error)
-	Stop(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error)
+	Upgrade(ctx context.Context, in *Download, opts ...grpc.CallOption) (*BasicResponse, error)
+	Plugin(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*PluginInfo, error)
+	Remove(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error)
+	Start(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error)
+	ReStart(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error)
+	Stop(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error)
 }
 
 type pluginClient struct {
@@ -138,7 +191,16 @@ func NewPluginClient(cc *grpc.ClientConn) PluginClient {
 	return &pluginClient{cc}
 }
 
-func (c *pluginClient) Plugin(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*PluginInfo, error) {
+func (c *pluginClient) Upgrade(ctx context.Context, in *Download, opts ...grpc.CallOption) (*BasicResponse, error) {
+	out := new(BasicResponse)
+	err := c.cc.Invoke(ctx, "/proto.Plugin/Upgrade", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *pluginClient) Plugin(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*PluginInfo, error) {
 	out := new(PluginInfo)
 	err := c.cc.Invoke(ctx, "/proto.Plugin/Plugin", in, out, opts...)
 	if err != nil {
@@ -147,7 +209,7 @@ func (c *pluginClient) Plugin(ctx context.Context, in *PluginInfo, opts ...grpc.
 	return out, nil
 }
 
-func (c *pluginClient) Remove(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error) {
+func (c *pluginClient) Remove(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error) {
 	out := new(BasicResponse)
 	err := c.cc.Invoke(ctx, "/proto.Plugin/Remove", in, out, opts...)
 	if err != nil {
@@ -156,7 +218,7 @@ func (c *pluginClient) Remove(ctx context.Context, in *PluginInfo, opts ...grpc.
 	return out, nil
 }
 
-func (c *pluginClient) Start(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error) {
+func (c *pluginClient) Start(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error) {
 	out := new(BasicResponse)
 	err := c.cc.Invoke(ctx, "/proto.Plugin/Start", in, out, opts...)
 	if err != nil {
@@ -165,7 +227,7 @@ func (c *pluginClient) Start(ctx context.Context, in *PluginInfo, opts ...grpc.C
 	return out, nil
 }
 
-func (c *pluginClient) ReStart(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error) {
+func (c *pluginClient) ReStart(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error) {
 	out := new(BasicResponse)
 	err := c.cc.Invoke(ctx, "/proto.Plugin/ReStart", in, out, opts...)
 	if err != nil {
@@ -174,7 +236,7 @@ func (c *pluginClient) ReStart(ctx context.Context, in *PluginInfo, opts ...grpc
 	return out, nil
 }
 
-func (c *pluginClient) Stop(ctx context.Context, in *PluginInfo, opts ...grpc.CallOption) (*BasicResponse, error) {
+func (c *pluginClient) Stop(ctx context.Context, in *PluginConf, opts ...grpc.CallOption) (*BasicResponse, error) {
 	out := new(BasicResponse)
 	err := c.cc.Invoke(ctx, "/proto.Plugin/Stop", in, out, opts...)
 	if err != nil {
@@ -185,19 +247,38 @@ func (c *pluginClient) Stop(ctx context.Context, in *PluginInfo, opts ...grpc.Ca
 
 // PluginServer is the server API for Plugin service.
 type PluginServer interface {
-	Plugin(context.Context, *PluginInfo) (*PluginInfo, error)
-	Remove(context.Context, *PluginInfo) (*BasicResponse, error)
-	Start(context.Context, *PluginInfo) (*BasicResponse, error)
-	ReStart(context.Context, *PluginInfo) (*BasicResponse, error)
-	Stop(context.Context, *PluginInfo) (*BasicResponse, error)
+	Upgrade(context.Context, *Download) (*BasicResponse, error)
+	Plugin(context.Context, *PluginConf) (*PluginInfo, error)
+	Remove(context.Context, *PluginConf) (*BasicResponse, error)
+	Start(context.Context, *PluginConf) (*BasicResponse, error)
+	ReStart(context.Context, *PluginConf) (*BasicResponse, error)
+	Stop(context.Context, *PluginConf) (*BasicResponse, error)
 }
 
 func RegisterPluginServer(s *grpc.Server, srv PluginServer) {
 	s.RegisterService(&_Plugin_serviceDesc, srv)
 }
 
+func _Plugin_Upgrade_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(Download)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PluginServer).Upgrade(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Plugin/Upgrade",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PluginServer).Upgrade(ctx, req.(*Download))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Plugin_Plugin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PluginInfo)
+	in := new(PluginConf)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -209,13 +290,13 @@ func _Plugin_Plugin_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/proto.Plugin/Plugin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PluginServer).Plugin(ctx, req.(*PluginInfo))
+		return srv.(PluginServer).Plugin(ctx, req.(*PluginConf))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Plugin_Remove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PluginInfo)
+	in := new(PluginConf)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -227,13 +308,13 @@ func _Plugin_Remove_Handler(srv interface{}, ctx context.Context, dec func(inter
 		FullMethod: "/proto.Plugin/Remove",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PluginServer).Remove(ctx, req.(*PluginInfo))
+		return srv.(PluginServer).Remove(ctx, req.(*PluginConf))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Plugin_Start_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PluginInfo)
+	in := new(PluginConf)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -245,13 +326,13 @@ func _Plugin_Start_Handler(srv interface{}, ctx context.Context, dec func(interf
 		FullMethod: "/proto.Plugin/Start",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PluginServer).Start(ctx, req.(*PluginInfo))
+		return srv.(PluginServer).Start(ctx, req.(*PluginConf))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Plugin_ReStart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PluginInfo)
+	in := new(PluginConf)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -263,13 +344,13 @@ func _Plugin_ReStart_Handler(srv interface{}, ctx context.Context, dec func(inte
 		FullMethod: "/proto.Plugin/ReStart",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PluginServer).ReStart(ctx, req.(*PluginInfo))
+		return srv.(PluginServer).ReStart(ctx, req.(*PluginConf))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _Plugin_Stop_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PluginInfo)
+	in := new(PluginConf)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -281,7 +362,7 @@ func _Plugin_Stop_Handler(srv interface{}, ctx context.Context, dec func(interfa
 		FullMethod: "/proto.Plugin/Stop",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PluginServer).Stop(ctx, req.(*PluginInfo))
+		return srv.(PluginServer).Stop(ctx, req.(*PluginConf))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -290,6 +371,10 @@ var _Plugin_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.Plugin",
 	HandlerType: (*PluginServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Upgrade",
+			Handler:    _Plugin_Upgrade_Handler,
+		},
 		{
 			MethodName: "Plugin",
 			Handler:    _Plugin_Plugin_Handler,
