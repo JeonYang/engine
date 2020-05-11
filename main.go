@@ -1,19 +1,42 @@
 package main
 
 import (
+	"engine/conf"
+	"engine/log"
 	"engine/routers"
-	"log"
+	"flag"
+	"fmt"
 	"net"
+	"os"
+	"time"
 )
 
-const (
-	port = ":50051"
+var (
+	confFile *string
 )
 
 func main() {
-	lis, err := net.Listen("tcp", port)
+	confFile = flag.String("f", "", "input conf file")
+	err := conf.InitConf(*confFile)
 	if err != nil {
-		log.Fatalf("failed to listen: %v", err)
+		panic(err)
+	}
+	err = log.InitLog()
+	if err != nil {
+		panic(err)
+	}
+
+	panicFile, err := os.OpenFile(conf.EngineConf.PanicFile(), os.O_CREATE|os.O_APPEND|os.O_RDWR, 0664)
+	if err != nil {
+		log.Warnf("open %s fail: %v", conf.EngineConf.PanicFile(), err)
+		return
+	}
+	panicFile.WriteString(fmt.Sprintf("\n%v opened panic.log at %v\n", os.Getpid(), time.Now()))
+	os.Stderr = panicFile
+
+	lis, err := net.Listen("tcp", conf.EngineConf.RpcPort)
+	if err != nil {
+		log.Errorf("failed to listen: %v", err)
 	}
 	routers.Server().Serve(lis)
 }

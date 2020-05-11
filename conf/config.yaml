@@ -1,0 +1,9 @@
+rpcPort: 9999
+dataDir: /Users/yangpeng/go/src/engine/data
+# 日志配置
+logger:
+  path: /Users/yangpeng/go/src/engine/log
+  fileName: log
+  level: debug
+  maxAge: 60480        #文件最大保存时间   单位秒
+  rotationTime: 8640   #日志切割时间间隔   单位秒

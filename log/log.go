@@ -1,6 +1,6 @@
 package log
 
-var Log Logger
+var Log *Logger
 
 func Error(args ...interface{}) {
 	Log.Error(args...)
@@ -18,6 +18,10 @@ func Debug(args ...interface{}) {
 	Log.Debug(args...)
 }
 
+func Fatal(args ...interface{}) {
+	Log.Fatal(args...)
+}
+
 func Errorf(format string, v ...interface{}) {
 	Log.Errorf(format, v...)
 }
@@ -32,4 +36,8 @@ func Infof(format string, v ...interface{}) {
 
 func Debugf(format string, v ...interface{}) {
 	Log.Debugf(format, v...)
+}
+
+func Fatalf(format string, args ...interface{}) {
+	Log.Fatalf(format, args...)
 }
