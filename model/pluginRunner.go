@@ -1,37 +1,44 @@
 package model
 
 type PluginRunner struct {
-	pluginProgram PluginProgram
-	cacheConf     string
-	running       bool
+	Program
+	cacheConf string
+	running   bool
 }
 
-func (runner *PluginRunner) Upgrade(pluginProgram PluginProgram) {
+func (runner *PluginRunner) Upgrade(program Program) {
 	if runner.running {
-		runner.pluginProgram.Stop()
-		pluginProgram.Start(runner.cacheConf)
+		runner.Program.Stop()
+		program.Start(runner.cacheConf)
 	}
-	runner.pluginProgram = pluginProgram
+	runner.Program = program
 }
 
 func (runner *PluginRunner) Start(conf string) {
 	if runner.running {
-		runner.pluginProgram.Stop()
+		runner.Program.Stop()
 	}
-	runner.pluginProgram.Start(conf)
+	runner.Program.Start(conf)
 	runner.cacheConf = conf
 }
 
 func (runner *PluginRunner) ReStart(conf string) {
 	if runner.running {
-		runner.pluginProgram.Stop()
+		runner.Program.Stop()
 	}
-	runner.pluginProgram.Start(conf)
+	if conf == "" {
+		conf = runner.cacheConf
+	}
+	runner.Program.Start(conf)
 	runner.cacheConf = conf
 }
 
 func (runner *PluginRunner) Stop() {
 	if runner.running {
-		runner.pluginProgram.Stop()
+		runner.Program.Stop()
 	}
+}
+
+func (runner *PluginRunner) Conf() string {
+	return runner.cacheConf
 }

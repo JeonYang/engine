@@ -4,23 +4,27 @@ package proto;
 import "proto/basic.proto";
 message PluginInfo {
     // 插件名唯一
-    string Name = 1;
-    repeated int32 Version = 2;
-    string MD5 = 3;
+    string name = 1;
+    string version = 2;
+    string md5 = 3;
     // json字符串
-    string Conf = 4;
+    string conf = 4;
+    int32 code = 5;
+    string message = 6;
 }
 
 
 message PluginConf {
     // 插件名唯一
-    string Name = 1;
+    string name = 1;
     // json字符串
-    string Conf = 2;
+    string conf = 2;
 }
 
 service Plugin {
     rpc Download (proto.Download) returns (proto.BasicResponse) {
+    }
+    rpc LoadPlugin (PluginConf) returns (proto.ProgramInfo) {
     }
     rpc Upgrade (proto.Download) returns (proto.ProgramInfo) {
     }

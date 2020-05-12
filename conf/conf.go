@@ -84,8 +84,16 @@ func (conf *engineConf) PluginPath(pluginName string) string {
 	return filepath.Join(conf.DataDir, "plugin", pluginName)
 }
 
-func (conf *engineConf) EnginePath() string {
+func (conf *engineConf) EngineDownLoadPath() string {
 	return filepath.Join(conf.DataDir, "engine")
+}
+
+func (conf *engineConf) EngineAppPath() string {
+	return AppAbsDir
+}
+
+func (conf *engineConf) EngineBackupPath() string {
+	return filepath.Join(AppRootDir, defaultEngineBackupDir)
 }
 
 func (conf *engineConf) PanicFile() string {

@@ -3,15 +3,13 @@ package main
 import (
 	"context"
 	"engine/proto"
-	"fmt"
 	"google.golang.org/grpc"
 	"log"
-	"os"
 	"time"
 )
 
 const (
-	address     = "localhost:8082"
+	address     = "localhost:9999"
 	defaultName = "pb.Add"
 )
 
@@ -23,18 +21,12 @@ func main() {
 	}
 	defer conn.Close()
 	c := proto.NewPluginClient(conn)
-
-	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	fmt.Println("name==", name)
-	r, err := c.Start(ctx, &proto.PluginInfo{Name: name})
+	download := &proto.Download{Name: "pluginName"}
+	r, err := c.Upgrade(ctx, download)
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Printf("Greeting: %s", r.Stdout)
+	log.Printf("Greeting: %+v", r)
 }

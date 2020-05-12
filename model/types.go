@@ -1,5 +1,7 @@
 package model
 
+import "engine/common"
+
 //type EngineInfo struct {
 //	Version []int `json:"version"`
 //	Id      []int `json:"id"`
@@ -30,21 +32,23 @@ package model
 //	Conf string
 //}
 
-type PluginProgramBuilder func() PluginProgram
+type PluginProgramBuilder func() common.PluginProgram
 
-type PluginProgram interface {
-	Name() string
-	Version() []int
+
+type Program interface {
+	common.PluginProgram
 	Md5() string
-	Start(conf string)
-	Stop()
 }
 
-type pluginProgram struct {
-	PluginProgram
+type program struct {
+	common.PluginProgram
 	md5 string
 }
 
-func (program *pluginProgram) Md5() string {
+func (program *program) Md5() string {
 	return program.md5
+}
+
+type PluginHarbor interface {
+
 }
