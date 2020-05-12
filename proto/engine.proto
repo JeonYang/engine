@@ -11,7 +11,7 @@ service Engine {
     // stop restart
     rpc Command (CommandRequest) returns (proto.BasicResponse) {
     }
-    rpc Upgrade (proto.Download) returns (proto.BasicResponse) {
+    rpc Upgrade (proto.Download) returns (proto.ProgramInfo) {
     }
 }
 

@@ -46,3 +46,19 @@ func (hub *pluginHub) DeletePluginRunner(name string) (*PluginRunner) {
 	}
 	return runner
 }
+
+func (hub *pluginHub) StopAllPlugin() {
+	hub.mutex.Lock()
+	defer hub.mutex.Unlock()
+	for _, runner := range hub.runnerHub {
+		runner.Stop()
+	}
+}
+
+func (hub *pluginHub) RestartAllPlugin() {
+	hub.mutex.Lock()
+	defer hub.mutex.Unlock()
+	for _, runner := range hub.runnerHub {
+		runner.ReStart(runner.cacheConf)
+	}
+}

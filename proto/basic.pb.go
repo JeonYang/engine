@@ -130,15 +130,95 @@ func (m *Download) GetMd5() string {
 	return ""
 }
 
+type ProgramInfo struct {
+	Name                 string   `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Version              []int32  `protobuf:"varint,2,rep,packed,name=Version,proto3" json:"Version,omitempty"`
+	Url                  string   `protobuf:"bytes,3,opt,name=Url,proto3" json:"Url,omitempty"`
+	Md5                  string   `protobuf:"bytes,4,opt,name=Md5,proto3" json:"Md5,omitempty"`
+	Code                 int32    `protobuf:"varint,5,opt,name=code,proto3" json:"code,omitempty"`
+	Message              string   `protobuf:"bytes,6,opt,name=message,proto3" json:"message,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ProgramInfo) Reset()         { *m = ProgramInfo{} }
+func (m *ProgramInfo) String() string { return proto.CompactTextString(m) }
+func (*ProgramInfo) ProtoMessage()    {}
+func (*ProgramInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_24bf3067adcc1cdb, []int{2}
+}
+
+func (m *ProgramInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ProgramInfo.Unmarshal(m, b)
+}
+func (m *ProgramInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ProgramInfo.Marshal(b, m, deterministic)
+}
+func (m *ProgramInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ProgramInfo.Merge(m, src)
+}
+func (m *ProgramInfo) XXX_Size() int {
+	return xxx_messageInfo_ProgramInfo.Size(m)
+}
+func (m *ProgramInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_ProgramInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ProgramInfo proto.InternalMessageInfo
+
+func (m *ProgramInfo) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *ProgramInfo) GetVersion() []int32 {
+	if m != nil {
+		return m.Version
+	}
+	return nil
+}
+
+func (m *ProgramInfo) GetUrl() string {
+	if m != nil {
+		return m.Url
+	}
+	return ""
+}
+
+func (m *ProgramInfo) GetMd5() string {
+	if m != nil {
+		return m.Md5
+	}
+	return ""
+}
+
+func (m *ProgramInfo) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *ProgramInfo) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*BasicResponse)(nil), "proto.BasicResponse")
 	proto.RegisterType((*Download)(nil), "proto.Download")
+	proto.RegisterType((*ProgramInfo)(nil), "proto.ProgramInfo")
 }
 
 func init() { proto.RegisterFile("proto/basic.proto", fileDescriptor_24bf3067adcc1cdb) }
 
 var fileDescriptor_24bf3067adcc1cdb = []byte{
-	// 165 bytes of a gzipped FileDescriptorProto
+	// 193 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x2c, 0x28, 0xca, 0x2f,
 	0xc9, 0xd7, 0x4f, 0x4a, 0x2c, 0xce, 0x4c, 0xd6, 0x03, 0xb3, 0x85, 0x58, 0xc1, 0x94, 0x92, 0x2d,
 	0x17, 0xaf, 0x13, 0x48, 0x34, 0x28, 0xb5, 0xb8, 0x20, 0x3f, 0xaf, 0x38, 0x55, 0x48, 0x88, 0x8b,
@@ -148,6 +228,8 @@ var fileDescriptor_24bf3067adcc1cdb = []byte{
 	0x12, 0x73, 0x21, 0x3a, 0x39, 0x83, 0xc0, 0x6c, 0x90, 0xce, 0xb0, 0xd4, 0xa2, 0xe2, 0xcc, 0xfc,
 	0x3c, 0x09, 0x26, 0x05, 0x66, 0x0d, 0xd6, 0x20, 0x18, 0x57, 0x48, 0x80, 0x8b, 0x39, 0xb4, 0x28,
 	0x47, 0x82, 0x19, 0xac, 0x18, 0xc4, 0x04, 0x89, 0xf8, 0xa6, 0x98, 0x4a, 0xb0, 0x40, 0x44, 0x7c,
-	0x53, 0x4c, 0x93, 0xd8, 0xc0, 0x6e, 0x34, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0x0e, 0x68, 0xdd,
-	0x08, 0xbf, 0x00, 0x00, 0x00,
+	0x53, 0x4c, 0x95, 0x7a, 0x19, 0xb9, 0xb8, 0x03, 0x8a, 0xf2, 0xd3, 0x8b, 0x12, 0x73, 0x3d, 0xf3,
+	0xd2, 0xf2, 0xa9, 0x6f, 0x03, 0xdc, 0xb7, 0xac, 0xd8, 0x7d, 0xcb, 0x86, 0xe2, 0xdb, 0x24, 0x36,
+	0x70, 0x98, 0x19, 0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0x17, 0x82, 0xdd, 0xd1, 0x4f, 0x01, 0x00,
+	0x00,
 }

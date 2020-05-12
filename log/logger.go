@@ -43,15 +43,6 @@ func (write *emptyWrite) Write(p []byte) (n int, err error) {
 	return len(p), nil
 }
 
-func NewLogger(hook logrus.Hook, level logrus.Level) *Logger {
-	log = logrus.New()
-	log.AddHook(hook)
-	log.SetFormatter(&logrus.JSONFormatter{})
-	log.SetOutput(&emptyWrite{})
-	log.SetLevel(level)
-	return &Logger{Logger: log}
-}
-
 func (logger *Logger) Author(author string) *Entry {
 	return logger.WithField("author", author)
 }
@@ -60,8 +51,6 @@ func (logger *Logger) Author(author string) *Entry {
 func (logger *Logger) WithField(key string, value interface{}) *Entry {
 	return &Entry{Entry: logger.Logger.WithField(key, value)}
 }
-
-var log *logrus.Logger
 
 /*
 logrus_amqp：Logrus hook for Activemq。

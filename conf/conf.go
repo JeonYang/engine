@@ -9,7 +9,7 @@ import (
 )
 
 type engineConf struct {
-	RpcPort string `yaml:"rpcPort"`
+	RpcPort int    `yaml:"rpcPort"`
 	DataDir string `yaml:"dataDir"`
 	Logger  struct {
 		// 保存文件
@@ -57,14 +57,14 @@ func InitConf(confFile string) error {
 }
 
 func defaultConf() {
-	if EngineConf.RpcPort == "" {
+	if EngineConf.RpcPort == 0 {
 		EngineConf.RpcPort = defaultRpcPort
 	}
 	if EngineConf.DataDir == "" {
 		EngineConf.DataDir = filepath.Join(AppRootDir, "data")
 	}
 	if EngineConf.Logger.Path == "" {
-		EngineConf.Logger.Path = filepath.Join(AppRootDir, "log")
+		EngineConf.Logger.Path = filepath.Join(AppRootDir, defaultLogDir)
 	}
 	if EngineConf.Logger.FileName == "" {
 		EngineConf.Logger.FileName = defaultLogFileName
@@ -85,7 +85,7 @@ func (conf *engineConf) PluginPath(pluginName string) string {
 }
 
 func (conf *engineConf) EnginePath() string {
-	return filepath.Join(conf.DataDir, "engine",)
+	return filepath.Join(conf.DataDir, "engine")
 }
 
 func (conf *engineConf) PanicFile() string {

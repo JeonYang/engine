@@ -39,3 +39,12 @@ type PluginProgram interface {
 	Start(conf string)
 	Stop()
 }
+
+type pluginProgram struct {
+	PluginProgram
+	md5 string
+}
+
+func (program *pluginProgram) Md5() string {
+	return program.md5
+}

@@ -34,9 +34,10 @@ func main() {
 	panicFile.WriteString(fmt.Sprintf("\n%v opened panic.log at %v\n", os.Getpid(), time.Now()))
 	os.Stderr = panicFile
 
-	lis, err := net.Listen("tcp", conf.EngineConf.RpcPort)
+	lis, err := net.Listen("tcp", fmt.Sprintf("localhost:%d", conf.EngineConf.RpcPort))
 	if err != nil {
-		log.Errorf("failed to listen: %v", err)
+		log.Errorf("failed to listen,port: %d,err: %v", conf.EngineConf.RpcPort, err)
+		return
 	}
 	routers.Server().Serve(lis)
 }

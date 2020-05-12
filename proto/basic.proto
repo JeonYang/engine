@@ -12,3 +12,12 @@ message Download {
     string Url = 3;
     string Md5 = 4;
 }
+
+message ProgramInfo {
+    string Name = 1;
+    repeated int32 Version = 2;
+    string Url = 3;
+    string Md5 = 4;
+    int32 code = 5;
+    string message = 6;
+}
