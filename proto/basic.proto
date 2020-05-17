@@ -1,0 +1,23 @@
+syntax = "proto3";
+package proto;
+
+message BasicResponse {
+    int32 code = 1;
+    string message = 2;
+}
+
+message Download {
+    string name = 1;
+    string version = 2;
+    string url = 3;
+    string md5 = 4;
+}
+
+message ProgramInfo {
+    string name = 1;
+    string version = 2;
+    string md5 = 3;
+    int32 code = 4;
+    string message = 5;
+    string conf = 6;
+}

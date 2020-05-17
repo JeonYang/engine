@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto;
+import "proto/basic.proto";
+message PluginInfo {
+    // 插件名唯一
+    string name = 1;
+    string version = 2;
+    // json字符串
+    string conf = 3;
+    int32 code = 4;
+    string message = 5;
+}
+
+
+message PluginConf {
+    // 插件名唯一
+    string name = 1;
+    // json字符串
+    string conf = 2;
+}
+
+service Plugin {
+    rpc Download (proto.Download) returns (proto.BasicResponse) {
+    }
+    rpc LoadPlugin (PluginConf) returns (proto.ProgramInfo) {
+    }
+    rpc Upgrade (proto.Download) returns (proto.ProgramInfo) {
+    }
+    rpc Plugin (PluginConf) returns (proto.ProgramInfo) {
+    }
+    rpc Remove (PluginConf) returns (proto.ProgramInfo) {
+    }
+    rpc Start (PluginConf) returns (proto.ProgramInfo) {
+    }
+    rpc ReStart (PluginConf) returns (proto.ProgramInfo) {
+    }
+    rpc Stop (PluginConf) returns (proto.ProgramInfo) {
+    }
+}

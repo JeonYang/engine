@@ -1,0 +1,19 @@
+syntax = "proto3"; //指定proto版本
+
+package proto;
+import "proto/basic.proto";
+
+message CommandRequest {
+    string command = 1;
+}
+
+service Engine {
+    // stop restart
+    rpc Command (CommandRequest) returns (proto.BasicResponse) {
+    }
+    rpc Upgrade (proto.Download) returns (proto.ProgramInfo) {
+    }
+}
+
+
+
