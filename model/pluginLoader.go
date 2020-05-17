@@ -37,7 +37,7 @@ func (loader *pluginLoader) DownloadEngine(url string) (string, error) {
 
 // 使用插件中的 New+PluginName function初始化
 func (loader *pluginLoader) LoadPluginProgram(pluginName string) (p Program, err error) {
-	plugin, err := plugin.Open(fmt.Sprintf("%s.so",conf.EngineConf.PluginPath(pluginName)))
+	plugin, err := plugin.Open(fmt.Sprintf("%s.so", conf.EngineConf.PluginPath(pluginName)))
 	if err != nil {
 		err = fmt.Errorf("open plugin: %s fail,err: %v", pluginName, err)
 		return
@@ -48,12 +48,12 @@ func (loader *pluginLoader) LoadPluginProgram(pluginName string) (p Program, err
 		err = fmt.Errorf("lookup plugin: %s fail,err: %v", pluginName, err)
 		return
 	}
-	pluginProgramBuild, ok := pluginBuildFun.(func() common.PluginProgram)
+	pluginProgramBuild, ok := pluginBuildFun.(func(common.PluginProgramEnvironment) common.PluginProgram)
 	if !ok {
 		err = fmt.Errorf("the pluginBuildFun type: %s fail.", reflect.TypeOf(pluginBuildFun).String())
 		return
 	}
-	pluginProgram := pluginProgramBuild()
+	pluginProgram := pluginProgramBuild(PluginProgramEnvironment)
 	return &program{PluginProgram: pluginProgram}, nil
 }
 

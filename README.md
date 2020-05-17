@@ -1,23 +1,14 @@
-# engine
 
+## 思想
+1。主程序维护插件为更新与执行。
+2。所有业务都动态加载在插件中。
+
+这里的主程序采用的是grpc。当然也可以使用其他方式，比如：tcp与manager连接。
+
+### grpc
 protoc --go_out=plugins=grpc:. proto/*.proto
 
-pluginInterface
-Version()[]int
-Name()string
-Stop()error
-Start()error
-NotifyConf(conf *Conf)
-Notify( map[string]interface)
+### plugin
 
-conf: {
-"command":"stop/restart",
-"pluginVersion":[{"name":"name","version":[1,2,0],"url":""}],
-"pluginConf":"{"pluginName":{"status":"start","conf":{}}},
-"":"",
-}
+go build -buildmode=plugin -o data/plugin/plugin1.so examples/plugin1.go
 
-功能
-1. 更新配置
-2. 根据配置下载插件
-2. 根据配置对主程序进行重启/停止,

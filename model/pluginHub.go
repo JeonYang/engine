@@ -3,50 +3,28 @@ package model
 import (
 	"bytes"
 	"encoding/gob"
-	"engine/log"
+	"engine/common"
 	"fmt"
 	"reflect"
 	"sync"
 )
 
-var PluginHub = pluginHub{runnerHub: make(map[string]*PluginRunner)}
+var PluginHub = pluginHub{runnerHub: make(map[string]*common.PluginRunner)}
 
 type pluginHub struct {
 	mutex     sync.Mutex
-	runnerHub map[string]*PluginRunner
+	runnerHub map[string]*common.PluginRunner
 }
 
-func (hub *pluginHub) PushPluginProgram(program Program) error {
+func (hub *pluginHub) PushPluginProgram(program common.PluginProgram) error {
 	hub.mutex.Lock()
 	defer hub.mutex.Unlock()
 	_, exist := hub.runnerHub[program.Name()]
 	if exist {
 		return fmt.Errorf("the plugin: %s exist in hub.", program.Name())
 	}
-	hub.runnerHub[program.Name()] = &PluginRunner{Program: program}
+	hub.runnerHub[program.Name()] = &common.PluginRunner{PluginProgram: program}
 	return nil
-}
-
-func (hub *pluginHub) CopyProgram(name string) (Program, bool) {
-	hub.mutex.Lock()
-	defer hub.mutex.Unlock()
-	runner, exist := hub.runnerHub[name]
-	if !exist {
-		return nil, exist
-	}
-	//var program Program
-	//var err error
-	program, err := hub.deepCopy(runner.Program)
-	if err != nil {
-		log.Errorf("deep copy program fail,[err: %v]", err)
-		return nil, false
-	}
-	pro, ok := program.(Program)
-	if !ok {
-		log.Errorf("the program type fail,[type: %v]", reflect.TypeOf(program))
-		return nil, false
-	}
-	return pro, exist
 }
 
 func (hub *pluginHub) deepCopy(src Program) (dst interface{}, err error) {
@@ -63,21 +41,19 @@ func (hub *pluginHub) deepCopy(src Program) (dst interface{}, err error) {
 	return
 }
 
-func (hub *pluginHub) GetPluginRunner(name string) (*PluginRunner, bool) {
+func (hub *pluginHub) GetPluginRunner(name string) (*common.PluginRunner, bool) {
 	hub.mutex.Lock()
 	defer hub.mutex.Unlock()
 	runner, exist := hub.runnerHub[name]
 	return runner, exist
 }
 
-func (hub *pluginHub) DeletePluginRunner(name string) *PluginRunner {
+func (hub *pluginHub) DeletePluginRunner(name string) *common.PluginRunner {
 	hub.mutex.Lock()
 	defer hub.mutex.Unlock()
 	runner, exist := hub.runnerHub[name]
 	if exist {
-		if runner.running {
-			runner.Stop()
-		}
+		runner.Stop()
 		delete(hub.runnerHub, name)
 	}
 	return runner
@@ -95,6 +71,6 @@ func (hub *pluginHub) RestartAllPlugin() {
 	hub.mutex.Lock()
 	defer hub.mutex.Unlock()
 	for _, runner := range hub.runnerHub {
-		runner.ReStart(runner.cacheConf)
+		runner.ReStart(nil)
 	}
 }

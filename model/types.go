@@ -32,9 +32,6 @@ import "engine/common"
 //	Conf string
 //}
 
-type PluginProgramBuilder func() common.PluginProgram
-
-
 type Program interface {
 	common.PluginProgram
 	Md5() string
@@ -47,8 +44,4 @@ type program struct {
 
 func (program *program) Md5() string {
 	return program.md5
-}
-
-type PluginHarbor interface {
-
 }

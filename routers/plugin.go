@@ -18,7 +18,7 @@ func (plugin *PluginServer) Download(context context.Context, download *proto.Do
 	if err != nil {
 		basicResponse.Code = 1
 		basicResponse.Message = "download fail"
-		log.Fatalf("download plugin %s fail,response: %s", download.Name, err.Error())
+		log.Errorf("download plugin %s fail,response: %s", download.Name, err.Error())
 	}
 	log.Infof("download plugin %s success", download.Name)
 	return
@@ -31,7 +31,7 @@ func (plugin *PluginServer) LoadPlugin(context context.Context, pluginConf *prot
 	if err != nil {
 		programInfo.Code = 1
 		programInfo.Message = "load fail"
-		log.Fatalf("load plugin %s fail,err: %s", pluginConf.Name, err.Error())
+		log.Errorf("load plugin %s fail,err: %s", pluginConf.Name, err.Error())
 		return
 	}
 
@@ -40,8 +40,8 @@ func (plugin *PluginServer) LoadPlugin(context context.Context, pluginConf *prot
 		runner.Upgrade(program)
 		programInfo.Name = runner.Name()
 		programInfo.Version = runner.Version()
-		programInfo.Md5 = runner.Md5()
-		programInfo.Conf = runner.Conf()
+		//programInfo.Md5 = runner.Md5()
+		//programInfo.Conf = runner.Conf()
 		log.Infof("load plugin %s ,info: %+v", pluginConf.Name, programInfo)
 		return
 	}
@@ -49,7 +49,7 @@ func (plugin *PluginServer) LoadPlugin(context context.Context, pluginConf *prot
 	if err != nil {
 		programInfo.Code = 2
 		programInfo.Message = "push fast..."
-		log.Fatalf("load plugin %s fail,err: %v", program.Name(), err.Error())
+		log.Errorf("load plugin %s fail,err: %v", program.Name(), err.Error())
 	}
 	return
 }
@@ -61,7 +61,7 @@ func (plugin *PluginServer) Upgrade(context context.Context, download *proto.Dow
 	if err != nil {
 		programInfo.Code = 1
 		programInfo.Message = "download fail"
-		log.Fatalf("upgrade plugin %s fail,err: %s", download.Name, err.Error())
+		log.Errorf("upgrade plugin %s fail,err: %s", download.Name, err.Error())
 		return
 	}
 	runner, exist := model.PluginHub.GetPluginRunner(program.Name())
@@ -69,8 +69,8 @@ func (plugin *PluginServer) Upgrade(context context.Context, download *proto.Dow
 		runner.Upgrade(program)
 		programInfo.Name = runner.Name()
 		programInfo.Version = runner.Version()
-		programInfo.Md5 = runner.Md5()
-		programInfo.Conf = runner.Conf()
+		//programInfo.Md5 = runner.Md5()
+		//programInfo.Conf = runner.Conf()
 		log.Infof("upgrade plugin %s success", download.Name)
 		return
 	}
@@ -78,7 +78,7 @@ func (plugin *PluginServer) Upgrade(context context.Context, download *proto.Dow
 	if err != nil {
 		programInfo.Code = 2
 		programInfo.Message = "upgrade fast..."
-		log.Fatalf("upgrade plugin %s fail,err: %v", download.Name, err.Error())
+		log.Errorf("upgrade plugin %s fail,err: %v", download.Name, err.Error())
 	}
 	return
 }
@@ -90,13 +90,13 @@ func (plugin *PluginServer) Plugin(context context.Context, pluginConf *proto.Pl
 	if !exist {
 		programInfo.Code = 1
 		programInfo.Message = "plugin not fond"
-		log.Fatalf("get plugin %s fail,plugin not fond", pluginConf.Name)
+		log.Errorf("get plugin %s fail,plugin not fond", pluginConf.Name)
 		return
 	}
 	programInfo.Name = runner.Name()
 	programInfo.Version = runner.Version()
-	programInfo.Md5 = runner.Md5()
-	programInfo.Conf = runner.Conf()
+	//programInfo.Md5 = runner.Md5()
+	//programInfo.Conf = runner.Conf()
 	log.Infof("get plugin %s success,plugin: %+v", runner.Name(), programInfo)
 	return
 }
@@ -117,8 +117,8 @@ func (plugin *PluginServer) Remove(context context.Context, pluginConf *proto.Pl
 	model.PluginHub.DeletePluginRunner(runner.Name())
 	programInfo.Name = runner.Name()
 	programInfo.Version = runner.Version()
-	programInfo.Md5 = runner.Md5()
-	programInfo.Conf = runner.Conf()
+	//programInfo.Md5 = runner.Md5()
+	//programInfo.Conf = runner.Conf()
 	log.Infof("remove plugin %s success.plugin: %+v", pluginConf.Name, programInfo)
 	return
 }
@@ -130,14 +130,14 @@ func (plugin *PluginServer) Start(context context.Context, pluginConf *proto.Plu
 	if !exist {
 		programInfo.Code = 1
 		programInfo.Message = "plugin not fond"
-		log.Fatalf("start plugin: %s fail,err: %s", runner.Name(), programInfo.Message)
+		log.Errorf("start plugin: %s fail,err: %s", pluginConf.Name, programInfo.Message)
 		return
 	}
 	runner.Start(pluginConf.Conf)
 	programInfo.Name = runner.Name()
 	programInfo.Version = runner.Version()
-	programInfo.Md5 = runner.Md5()
-	programInfo.Conf = runner.Conf()
+	//programInfo.Md5 = runner.Md5()
+	//programInfo.Conf = runner.Conf()
 	log.Infof("start plugin: %s success", runner.Name())
 	return
 }
@@ -155,8 +155,8 @@ func (plugin *PluginServer) ReStart(context context.Context, pluginConf *proto.P
 	runner.ReStart(pluginConf.Conf)
 	programInfo.Name = runner.Name()
 	programInfo.Version = runner.Version()
-	programInfo.Md5 = runner.Md5()
-	programInfo.Conf = runner.Conf()
+	//programInfo.Md5 = runner.Md5()
+	//programInfo.Conf = runner.Conf()
 	log.Infof("restart plugin: %s success", pluginConf.Name)
 	return
 }
@@ -174,8 +174,8 @@ func (plugin *PluginServer) Stop(context context.Context, pluginConf *proto.Plug
 	runner.Stop()
 	programInfo.Name = runner.Name()
 	programInfo.Version = runner.Version()
-	programInfo.Md5 = runner.Md5()
-	programInfo.Conf = runner.Conf()
+	//programInfo.Md5 = runner.Md5()
+	//programInfo.Conf = runner.Conf()
 	log.Infof("stop plugin: %s success", pluginConf.Name)
 	return
 }

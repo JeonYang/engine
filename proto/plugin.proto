@@ -6,11 +6,10 @@ message PluginInfo {
     // 插件名唯一
     string name = 1;
     string version = 2;
-    string md5 = 3;
     // json字符串
-    string conf = 4;
-    int32 code = 5;
-    string message = 6;
+    string conf = 3;
+    int32 code = 4;
+    string message = 5;
 }
 
 
